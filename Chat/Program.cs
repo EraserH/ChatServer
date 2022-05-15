@@ -30,6 +30,18 @@ namespace Chat
                 AnsiConsole.MarkupLine($"[bold red]{user}[/]: [blue]{message}[/]");
             });
 
+            connection.On<string, string>("ReceiveServiceMessage", (groupName, message) =>
+            {
+                if (groupName == "common")
+                {
+                    AnsiConsole.MarkupLine($"[bold green]Service message[/]: [blue]{message}[/]");
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine($"([bold red]{groupName}[/]): [blue]{message}[/]");
+                }
+            });
+
 
 
             await connection.StartAsync();

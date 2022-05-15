@@ -17,7 +17,7 @@ namespace ChatServer
         public Task Enter(string user)
         {
             Connections[user] = Context.ConnectionId;
-            return Clients.All.SendAsync("ReceiveMessage", user, $"{user} has entered chat");
+            return Clients.All.SendAsync("ReceiveServiceMessage", "common", $"{user} has entered chat");
         }
         public async Task JoinGroup(string groupName, string user)
         {
@@ -29,7 +29,8 @@ namespace ChatServer
                 await Clients.Caller.SendAsync("ReceiveMessageFromGroup", groupName, groupMessage.Name, groupMessage.Message);
             }
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-            await Clients.Group(groupName).SendAsync("ReceiveMessageFromGroup", groupName, user, message);
+            //await Clients.Group(groupName).SendAsync("ReceiveMessageFromGroup", groupName, user, message);
+            await Clients.Group(groupName).SendAsync("ReceiveServiceMessage", groupName, message);
 
             GroupMessageSaver.SerializeMessage(new GroupMessage(groupName, user, message));
         }
@@ -38,7 +39,8 @@ namespace ChatServer
             string message = $"{user} has left the group";
 
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
-            await Clients.Group(groupName).SendAsync("ReceiveMessageFromGroup", groupName, user, message);
+            //await Clients.Group(groupName).SendAsync("ReceiveMessageFromGroup", groupName, user, message);
+            await Clients.Group(groupName).SendAsync("ReceiveServiceMessage", groupName, message);
 
             GroupMessageSaver.SerializeMessage(new GroupMessage(groupName, user, message));
         }
