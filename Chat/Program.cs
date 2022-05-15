@@ -30,6 +30,8 @@ namespace Chat
                 AnsiConsole.MarkupLine($"[bold red]{user}[/]: [blue]{message}[/]");
             });
 
+
+
             await connection.StartAsync();
 
             await connection.InvokeAsync("Enter", userName);
