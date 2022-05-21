@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
+    <Folder Include="DirectDataBases\" />
+    <Folder Include="RoomDataBases\" />
   </ItemGroup>
 
 </Project>

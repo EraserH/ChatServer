@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
 
-namespace ChatServer
+namespace ChatServer.Serializers
 {
     public class GroupMessage
     {
@@ -29,27 +29,8 @@ namespace ChatServer
             Message = message;
         }
     }
-    public class GroupMessageSaver
+    public static class GroupMessageSerializer
     {
-
-        /*private string _fileName;
-
-        public GroupMessageSaver(string fn)
-        {
-            _fileName = fn;
-        }*/
-
-        // Интересно
-        /*public async void SerialyzeMessage(groupMessage message, string fileName)
-        {
-            using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
-            {
-                await JsonSerializer.SerializeAsync<groupMessage>(fs, message);
-                Console.WriteLine("Data has been saved to file");
-                //return true;
-            }
-        }*/
-
         public static void SerializeMessage(GroupMessage groupMessage)
         {
             /*string fileName = groupMessage.group + ".json";
@@ -63,12 +44,12 @@ namespace ChatServer
             messages.Add(groupMessage);
             string jsonString = JsonSerializer.Serialize(messages);
             //File.WriteAllText(fileName, jsonString);
-            File.WriteAllText(groupMessage.Group + ".json", jsonString);
+            File.WriteAllText("RoomDataBases/" + groupMessage.Group + ".json", jsonString);
         }
 
         public static List<GroupMessage> DeSerializeMessage(string groupName)
         {
-            var fileName = groupName + ".json";
+            var fileName = "RoomDataBases/" + groupName + ".json";
             var deserializedMessages = new List<GroupMessage>();
             if (File.Exists(fileName))
             {

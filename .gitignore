@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/ChatServer.Tests/ChatServer.Tests.csproj
+/ChatServer.Tests/ChatHubCommonMessageTests.cs
+/ChatServer/DirectDataBases/user1.json
+/ChatServer/DirectDataBases/user2.json
+/ChatServer/RoomDataBases/group1.json
